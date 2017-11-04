@@ -1,0 +1,7 @@
+create table disc (disc_id integer not null auto_increment, title varchar(255), user_id integer, primary key (disc_id))
+create table takenitem (holder_id integer not null, disc_id integer not null)
+create table user (user_id integer not null auto_increment, active integer, email varchar(255) not null, last_name varchar(255) not null, name varchar(255) not null, password varchar(255) not null, primary key (user_id))
+alter table takenitem add constraint UK_90jay9emccf1b2893ptie1lw1 unique (disc_id)
+alter table disc add constraint FK6uvof9wj3ua7pb6trqjwgu6e9 foreign key (user_id) references user (user_id)
+alter table takenitem add constraint FKiqb1e4ka5orh4nx69gupn7vkc foreign key (disc_id) references disc (disc_id)
+alter table takenitem add constraint FKkrclex22qic5supti2ihdqvt1 foreign key (holder_id) references user (user_id)

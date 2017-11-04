@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Home Page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+
+    <div class="panel-group" style="margin-top:40px">
+    </div>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
+        <div class="container">
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li th:classappend="${module == 'home' ? 'active' : ''}">
+                        <a href="#" th:href="@{/home}">My discs</a>
+                    </li>
+                    <li th:classappend="${module == 'all' ? 'active' : ''}">
+                        <a href="#" th:href="@{/taken}">Discs on hand</a>
+                    </li>
+                    <li th:classappend="${module == 'all' ? 'active' : ''}">
+                        <a href="#" th:href="@{/available}">Available discs</a>
+                    </li>
+                    <li th:classappend="${module == 'all' ? 'active' : ''}">
+                        <a href="#" th:href="@{/thirdparty}">Thirdparty discs</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/logout" th:href="@{/logout}">
+                            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th style="width: 100px;">Disc Title</th>
+        <th style="width: 100px;">Disc Owner</th>
+        <th style="width: 100px;">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="currentUserDisc : ${currentUserDiscsList}">
+        <td th:text="${currentUserDisc.title}"></td>
+        <td th:text="${currentUserDisc.owner.name} + ' ' + ${currentUserDisc.owner.lastName}"></td>
+        <td >
+            <form action="#" th:action="@{/return/} + ${{currentUserDisc.id}}" th:method="put">
+                <button th:id="'table_entry_childs_button_' + ${currentUserDisc.id}" type="submit">
+                    <i>Return disc</i>
+                </button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
